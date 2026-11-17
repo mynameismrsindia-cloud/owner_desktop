@@ -71,10 +71,19 @@ DLL is missing.
 Product, stock, and sales changes are stored by the API and load in the app;
 those data changes do not require reinstalling the desktop program. Changes to
 the app itself (for example, new screens or logic) require a new Windows build
-and installation, unless the app is distributed through an update channel such
-as Microsoft Store. This project does not currently have an automatic
-in-app updater or a configured release workflow. No Git push is needed to
-build locally on Windows.
+and installation for the Windows desktop version.
+
+The web version deploys automatically to
+`https://mynameismrsindia-cloud.github.io/owner_desktop/` when changes are
+pushed to the `main` branch. Web users open that link in a browser and do not
+reinstall the Windows app; they may need to refresh the page to load the latest
+version. To enable deployment the first time, open the repository's **Settings
+→ Pages** and set the build and deployment source to **GitHub Actions**.
+GitHub Pages hosts only the web app, not the Windows EXE.
+
+The browser app still needs access to the configured HTTPS API. If the API is
+private or restricted to an office network, users need that network or VPN,
+and the API must allow browser requests from the GitHub Pages origin.
 
 The optional Microsoft Store package configuration keeps its existing package
 identity (`PushpenduDas.WholeSalerOwner`) to avoid breaking existing Store
