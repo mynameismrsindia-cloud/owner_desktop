@@ -1,0 +1,48 @@
+name: Build Wholesale Manager for Windows
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Build Windows release
+        run: flutter build windows --release
+
+      - name: Package Windows app
+        shell: pwsh
+        run: |
+          $releaseDir = "build/windows/x64/runner/Release"
+          $exePath = Join-Path $releaseDir "wholesale_manager.exe"
+          if (-not (Test-Path -LiteralPath $exePath -PathType Leaf)) {
+            throw "Windows executable was not created at '$exePath'."
+          }
+          Compress-Archive -Path "$releaseDir/*" `
+            -DestinationPath "Wholesale-Manager-Windows-x64.zip" `
+            -CompressionLevel Optimal
+
+      - name: Upload Windows app
+        uses: actions/upload-artifact@v4
+        with:
+          name: Wholesale-Manager-Windows-x64
+          path: Wholesale-Manager-Windows-x64.zip
+          if-no-files-found: error
+          retention-days: 30

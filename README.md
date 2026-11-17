@@ -81,6 +81,12 @@ version. To enable deployment the first time, open the repository's **Settings
 → Pages** and set the build and deployment source to **GitHub Actions**.
 GitHub Pages hosts only the web app, not the Windows EXE.
 
+Every push to `main` also builds a Windows release ZIP. Download it from the
+repository's **Actions → Build Wholesale Manager for Windows → latest
+successful run → Artifacts → Wholesale-Manager-Windows-x64**. Extract the ZIP
+and run `wholesale_manager.exe`; keep the adjacent files together. Each
+successful Windows build artifact is available for 30 days.
+
 The browser app still needs access to the configured HTTPS API. If the API is
 private or restricted to an office network, users need that network or VPN,
 and the API must allow browser requests from the GitHub Pages origin.
