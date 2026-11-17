@@ -1,0 +1,12 @@
+# Dart and Flutter generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+
+# IDE and operating system files
+*.iml
+.idea/
+.DS_Store
